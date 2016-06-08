@@ -29,7 +29,7 @@
 	<!-- 通用删除 -->
 	<sql id="deleteIn">
 		<![CDATA[ 
-        	delete from ${table} where ids in( ${sqlIn} )
+        	delete from ${table} where ${condition} in( ${sqlIn} )
     	]]>
 	</sql>
 	

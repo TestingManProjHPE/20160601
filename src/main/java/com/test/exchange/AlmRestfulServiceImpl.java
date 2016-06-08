@@ -56,9 +56,9 @@ public class AlmRestfulServiceImpl {
 		call.execute();
 	}
 
-	public void sitSession() throws IOException {
+	public void siteSession() throws IOException {
 		String xml = ("<session-parameters><client-type>REST Client</client-type></session-parameters>");
-		Call<String> call = retroFactory.getScalarsService().sitSession(xml);
+		Call<String> call = retroFactory.getScalarsService().siteSession(xml);
 		call.execute();
 	}
 

@@ -105,10 +105,6 @@
 										'mainPanel', 'splitPage', 'username')">
 									用户名 ${orderBy("username")}
 								</th>
-								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
-										'mainPanel', 'splitPage', 'password')">
-									密码 ${orderBy("password")}
-								</th>
 								
 								<th class="hidden-xs">
 									${i18nMap["admin.common.operation"]}
@@ -130,7 +126,6 @@
 									</span>
 								</td>
 								<td>${escapeXml(accessRestful["username"]!)}</td>
-								<td>${escapeXml(accessRestful["password"]!)}</td>
 
 								<td class="hidden-xs">
 									<% if(view == true){ %>
@@ -162,8 +157,8 @@
 									
 									<% if(import == true){ %>
 									<button type="button" class="btn btn-red add-row" 
-										onclick="common_ajax.ajaxMainPanel(
-												'/jf/test/accessRestful/importData/${accessRestful.ids!}');">
+										onclick="common_ajax.aajaxFunc(
+												'/jf/test/accessRestful/importData/${accessRestful.ids!}',null,'text',null);">
 										数据导入
 										<i class="fa fa-edit"></i>
 									</button>

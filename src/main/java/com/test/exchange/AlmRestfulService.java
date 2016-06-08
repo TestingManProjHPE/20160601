@@ -19,7 +19,7 @@ public interface AlmRestfulService {
 	// 设置session，alm系统将返回QCSession cookie 和 XSRF-TOKEN
 	// cookie信息，并将cookie添加到cookieStore中
 	@POST("rest/site-session")
-	Call<String> sitSession(@Body String xmlString);
+	Call<String> siteSession(@Body String xmlString);
 
 	// alm信息的domains信息，这里同时提取projects信息
 	@GET("rest/domains")
@@ -31,7 +31,6 @@ public interface AlmRestfulService {
 	
 //	@GET("rest/domains/{domain}/projects/{project}/defects")
 //	Call<String> getDefects(@Path("domain") String domain, @Path("project") String project);
-
 	
 	// 获取需求信息，并返回Entities对象
 	@GET("rest/domains/{domain}/projects/{project}/requirements")

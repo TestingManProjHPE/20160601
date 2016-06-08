@@ -9,13 +9,14 @@ import com.test.mvc.requirements.RequirementsService;
 
 /**
  * 博客单元测试类
- * @author 董华健  dongcb678@163.com
+ * 
+ * @author 董华健 dongcb678@163.com
  */
 public class TestRequirements extends TestBase {
-	
+
 	@Test
-    public void delete() throws SQLException{
-		RequirementsService.service.delete("requirements", "ids001,ids002");
-    }
+	public void delete() throws SQLException {
+		RequirementsService.service.delete("requirements", "req_sn", "ids001,ids002");
+	}
 
 }

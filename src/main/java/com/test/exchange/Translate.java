@@ -19,19 +19,17 @@ public class Translate {
 		this.password = password;
 	}
 
-	
+	public void importData() throws IOException {
 
-	public void importData() {
-		
 		AlmRestfulServiceImpl almService = new AlmRestfulServiceImpl(baseUrl);
 		// TODO 拆成鉴权,获取domains,获取其他数据
-		try {
+
 
 			almService.setUsername(username);
 			almService.setPassword(password);
 
 			almService.login();
-			almService.sitSession();
+			almService.siteSession();
 
 			Domains domains = almService.getDomains();
 			Domain domain = domains.getList().get(0);
@@ -74,10 +72,12 @@ public class Translate {
 						case "type-id":
 							record.set("req_type", Integer.valueOf(sqlValue));
 							break;
-						// case "description":
-						// record.set("description", sqlValue);
-						// case "attachment":
-						// record.set("attachment", sqlValue);
+						case "description":
+							record.set("description", sqlValue);
+							break;
+						case "attachment":
+							record.set("attachment", sqlValue);
+							break;
 						// case "target-rcyc":
 						// sqlPara[j][4] = field.getValuelist().get(0) ? "0"
 						// : field.getValuelist().get(0);
@@ -85,12 +85,17 @@ public class Translate {
 							;
 						}
 					}
+
+					if (Db.findById("requirements", "req_sn", record.get("req_sn").toString()) != null) {
+						Db.deleteById("requirements", "req_sn", record.get("req_sn").toString());
+					}
+
 					Db.save("requirements", record);
+
 				}
 			}
 
 			for (Entity DefectEntity : almService.getDefects().getList()) {
-				// System.out.println(entity.getChildrenCount().getValue());
 
 				for (int j = 0; j < DefectEntity.getList().size(); j++) {
 					Record record = new Record();
@@ -103,7 +108,7 @@ public class Translate {
 						} else {
 							sqlValue = field.getValuelist().get(0).getText();
 						}
-
+//						System.out.println("----------" + field.getName().toString());
 						switch (field.getName()) {
 						case "id":
 							record.set("defect_id", sqlValue);
@@ -120,8 +125,15 @@ public class Translate {
 						case "priority":
 							record.set("Priority", sqlValue);
 							break;
-						//// case "attachment":
-						//// record.set("attachment", sqlValue);
+						case "creation-time":
+							record.set("deteded_date", getSqlTimestamp(parse(sqlValue, pattern_ymd)));
+							break;
+						case "description":
+							record.set("description", sqlValue);
+							break;
+						case "attachment":
+							record.set("attachment", sqlValue);
+							break;
 						// // case "target-rcyc":
 						// // sqlPara[j][4] = field.getValuelist().get(0) ? "0"
 						// // : field.getValuelist().get(0);
@@ -129,6 +141,11 @@ public class Translate {
 							;
 						}
 					}
+
+					if (Db.findById("defect", "defect_id", record.get("defect_id").toString()) != null) {
+						Db.deleteById("defect", "defect_id", record.get("defect_id").toString());
+					}
+
 					Db.save("defect", record);
 				}
 			}
@@ -137,10 +154,6 @@ public class Translate {
 			// author, product_name) values(?, ?, ?, ?)";
 			// Db.batch(sql, sqlPara, 200);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) {

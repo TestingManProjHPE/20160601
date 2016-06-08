@@ -53,35 +53,28 @@
 	<body class="lock-screen">
 		
 		<div class="main-ls animated flipInX">
-			<div class="logo">
-				<img src="${cxt!}/ui/rapido/assets/images/logo.png">
-			</div>
 			
 			<div class="box-ls">
-				<img alt="" src="${cxt!}/ui/rapido/assets/images/avatar-1-xl.jpg"/>
-				<div class="user-info">
 					<h1><i class="fa fa-lock"></i> ${i18nMap["admin.top.exitSystem"]}</h1>
-					<span>dongcb678@163.com</span>
 					<span><em>请输入您的密码解锁</em></span>
 					<form action="${cxt!}/jf/platform/login/pass" method="post">
 						<div class="input-group">
-							<input type="text" placeholder="Password" class="form-control" name="password">
+							<input type="password" class="form-control" name="password">
 							<span class="input-group-btn">
 								<button class="btn btn-green" type="submit">
 									<i class="fa fa-chevron-right"></i>
 								</button> 
 							</span>
-						</div>
+						</div> 
 						<div class="relogin">
 							<a href="${cxt!}/jf/platform/login/logout">
-								您不是&nbsp;${i18nMap["admin.top.exitSystem"]}？</a>
+								${i18nMap["admin.top.exitSystem"]}</a>
 						</div>
 					</form>
-				</div>
 			</div>
 			
 			<div class="copyright">
-				2015 &copy; JfinalUIB.
+				2016 &copy; HPE.
 			</div>
 		</div>
 		

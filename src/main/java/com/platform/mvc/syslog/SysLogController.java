@@ -7,14 +7,15 @@ import com.platform.mvc.base.BaseController;
 
 /**
  * 系统日志管理
+ * 
  * @author 董华健
  */
-//@Controller(controllerKey = "/jf/platform/sysLog")
+// @Controller(controllerKey = "/jf/platform/sysLog")
 public class SysLogController extends BaseController {
 
 	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger(SysLogController.class);
-	
+
 	/**
 	 * 日志管理列表
 	 */
@@ -28,7 +29,7 @@ public class SysLogController extends BaseController {
 	 * 查看日志
 	 */
 	public void view() {
-		Syslog log =  Syslog.dao.findFirst(getSql(Syslog.sqlId_view), ids);
+		Syslog log = Syslog.dao.findFirst(getSql(Syslog.sqlId_view), ids);
 		setAttr("sysLog", log);
 		render("/platform/sysLog/view.html");
 	}
@@ -37,10 +38,8 @@ public class SysLogController extends BaseController {
 	 * 删除日志
 	 */
 	public void delete() {
-		SysLogService.service.delete("pt_syslog", getPara() == null ? ids : getPara());
+		SysLogService.service.delete("pt_syslog", "ids", getPara() == null ? ids : getPara());
 		redirect("/jf/platform/sysLog");
 	}
 
 }
-
-

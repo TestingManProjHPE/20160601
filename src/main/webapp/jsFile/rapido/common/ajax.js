@@ -2,7 +2,7 @@
  * Ajax请求方法二次封装
  */
 var common_ajax = function() {
-	
+
 	/**
 	 * ajax请求并返回结果
 	 * @param url
@@ -14,7 +14,7 @@ var common_ajax = function() {
 		if(dataType == undefined || dataType == null){
 			dataType = "html";
 		}
-		
+
 		var result = "";
 		$.ajax({
 			type : "post",
@@ -45,7 +45,7 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
 	/**
 	 * ajax请求url替换指定div
 	 * @param divId 返回替换div
@@ -57,7 +57,7 @@ var common_ajax = function() {
 		var result = ajaxFunc(url, data, callback);
 		$("#" + divId).html(result);
 	}
-	
+
 	/**
 	 * ajaxForm请求，执行前进行确认
 	 */
@@ -68,7 +68,7 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
 	/**
 	 * ajax请求url替换主面板内容
 	 * @param url 请求地址
@@ -81,7 +81,7 @@ var common_ajax = function() {
 		toolbarDiv.nextAll().remove();
 		toolbarDiv.after(result);
 	}
-	
+
 	/**
 	 * ajaxForm请求，执行前进行确认
 	 */
@@ -92,7 +92,7 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
 	/**
 	 * ajax提交form求并返回结果
 	 * @param divId 返回替换div
@@ -103,7 +103,7 @@ var common_ajax = function() {
 		if(dataType == undefined || dataType == null){
 			dataType = "html";
 		}
-		
+
 		var result = "";
 		$("#" + formId).ajaxSubmit({
 			dataType : dataType,
@@ -111,7 +111,7 @@ var common_ajax = function() {
 			cache: false,
 		    success:  function (data) {
 		    	result = data;
-		    	
+
 				//扩展回调函数
 				if( callback != null ){
 					callback();
@@ -120,7 +120,7 @@ var common_ajax = function() {
 		});
 		return result;
 	}
-	
+
 	/**
 	 * ajaxForm请求，执行前进行确认
 	 */
@@ -131,7 +131,7 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
 	/**
 	 * ajax提交form替换指定div
 	 * @param divId 返回替换div
@@ -142,7 +142,7 @@ var common_ajax = function() {
 		var result = ajaxForm(formId, callback);
 		$("#" + divId).html(result);
 	}
-	
+
 	/**
 	 * ajaxFormDiv请求，执行前进行确认
 	 */
@@ -153,7 +153,7 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
 	/**
 	 * ajax提交form替换指定主面板
 	 * @param formId 提交formid
@@ -176,25 +176,72 @@ var common_ajax = function() {
 			}
 		});
 	};
-	
+
+	/**
+	 * ajax异步请求并返回结果
+	 * @param url
+	 * @param data
+	 * @param callback
+	 * @returns {String}
+	 */
+	var aajaxFunc = function(url, data, dataType, callback){
+		if(dataType == undefined || dataType == null){
+			dataType = "html";
+		}
+
+		var result = "";
+		$.ajax({
+			type : "post",
+			url : encodeURI(encodeURI(cxt + url)),
+			data : data,
+			dataType : dataType,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			async: true,
+			cache: false,
+			success:function(response){
+				result = response;
+				alert(result);
+				//扩展回调函数
+				if( callback != null ){
+					callback();
+				}
+			}
+		});
+		return result;
+	}
+
+	/**
+	 * ajax异步请求，执行前进行确认
+	 */
+	var aajaxFuncConfirm = function(url, data, dataType, callback) {
+		bootbox.confirm("确定要这样操作吗？", function(result) {
+			if(result){
+				ajaxFunc(url, data, dataType, callback);
+			}
+		});
+	};
+
 	return {
 		ajaxFunc : ajaxFunc,
 		ajaxFuncConfirm : ajaxFuncConfirm,
-		
+
 		ajaxDiv : ajaxDiv,
 		ajaxDivConfirm : ajaxDivConfirm,
-		
+
 		ajaxMainPanel : ajaxMainPanel,
 		ajaxMainPanelConfirm : ajaxMainPanelConfirm,
-		
+
 		ajaxForm : ajaxForm,
 		ajaxFormConfirm : ajaxFormConfirm,
-		
+
 		ajaxFormDiv : ajaxFormDiv,
 		ajaxFormDivConfirm : ajaxFormDivConfirm,
-		
+
 		ajaxFormMainPanel : ajaxFormMainPanel,
-		ajaxFormMainPanelConfirm : ajaxFormMainPanelConfirm
+		ajaxFormMainPanelConfirm : ajaxFormMainPanelConfirm,
+
+		aajaxFunc : aajaxFunc,
+		aajaxFuncConfirm : aajaxFuncConfirm
 	};
-	
+
 }();

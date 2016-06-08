@@ -11,7 +11,7 @@ import com.jfinal.aop.Before;
 import com.test.exchange.Translate;
 
 /*
- * XXX 管理	
+ * 管理	
  * 描述：
  * 
  * /jf/test/accessRestful
@@ -25,8 +25,6 @@ import com.test.exchange.Translate;
  */
 //@Controller(controllerKey = "/jf/test/accessRestful")
 public class AccessRestfulController extends BaseController {
-
-	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger(AccessRestfulController.class);
 
 	/**
@@ -77,29 +75,32 @@ public class AccessRestfulController extends BaseController {
 	 * 删除
 	 */
 	public void delete() {
-		AccessRestfulService.service.delete("access_restful", getPara() == null ? ids : getPara());
+		AccessRestfulService.service.delete("access_restful", "ids", getPara() == null ? ids : getPara());
 		redirect("/jf/test/accessRestful");
 	}
 
 	/**
 	 * 数据导入
 	 * 
-	 * @throws IOException
-	 * @throws ParseException
 	 */
-	public void importData() throws IOException, ParseException {
+	public void importData() {
+
+		String result = "true";
 
 		AccessRestful accessRestful = AccessRestful.dao.findById(getPara());
 
 		Translate translate = new Translate(accessRestful.getBaseurl(), accessRestful.getUsername(),
 				accessRestful.getPassword());
 
-		translate.importData();
+		try {
+			translate.importData();
+		} catch (IOException e) {
+			result = e.getMessage();
+			log.error(accessRestful.getBaseurl() + " 导入数据错误!");
+		}
 
-		redirect("/jf/test/accessRestful");
+		renderText("地址: " + accessRestful.getBaseurl() + " 结果是 " + result);
 
-		// AccessRestfulService.service.delete("access_restful", getPara() ==
-		// null ? ids : getPara());
 	}
 
 }

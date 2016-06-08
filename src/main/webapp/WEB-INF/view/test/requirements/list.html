@@ -117,7 +117,10 @@
 										value="${requirements.req_sn!}" class="flat-grey foocheck">
 								</td>
 								<td>
-										${escapeXml(requirements["author"]!)}
+									${escapeXml(requirements["author"]!)}
+								</td>
+								<td>
+									${requirements.creationdate!, dateFormat="yyyy-MM-dd"}
 								</td>
 								<td>
 									${escapeXml(requirements["product_name"]!)}
@@ -128,9 +131,7 @@
 								<td>
 									${escapeXml(requirements["description"]!)}
 								</td>
-								<td>
-									${requirements.creationdate!, dateFormat="yyyy-MM-dd HH:mm:ss.SSS"}
-								</td>
+
 								<td class="hidden-xs">
 									<% if(view == true){ %>
 									<button type="button" class="btn btn-dark-yellow add-row" 
@@ -154,7 +155,7 @@
 									<% if(delete == true){ %>
 									<button type="button" class="btn btn-red delete-row" 
 										data-bb="deleteOne" 
-										data-url="/jf/test/blog/delete/${requirements.req_sn!}"> 
+										data-url="/jf/test/requirements/delete/${requirements.req_sn!}"> 
 										${i18nMap["admin.common.delete"]} 
 										<i class="fa fa-trash-o"></i>
 									</button>

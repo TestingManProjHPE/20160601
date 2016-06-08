@@ -77,7 +77,7 @@ public class BlogController extends BaseController {
 	 * 删除
 	 */
 	public void delete() {
-		BlogService.service.delete("test_blog", 
+		BlogService.service.delete("test_blog", "ids",
 				getPara() == null ? ids : getPara());
 		redirect("/jf/test/blog");
 	}

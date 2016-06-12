@@ -37,18 +37,19 @@
 							<span class="dataTables_paginate paging_bootstrap" style="float:left" id="splitPageDivHead">
 								<% include("/common/splitPageHead.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
 							</span>
-							<% if(authUrl("/test/requirements/add.html")){ %>
-							<a href="#" data-toggle="modal" class="ajaxDialog btn" style="float:right;margin-right: 30px;"
-							   data-url="/jf/test/blog/toUrl?toUrl=/test/requirements/add.html" data-backdrop="true">添加<i class="fa fa-plus"></i></a>
-							<% } %>
-							
-							<% if(delete == true){ %>
-								<button type="button" class="btn btn-red delete-row" 
-									data-bb="deleteList" data-url="/jf/test/requirements/delete"> 
-									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
-								</button>
-							<% } %>
+							<span style="float:right;margin-right: 30px;">
+								<% if(authUrl("/test/requirements/add.html")){ %>
+									<button href="#" data-toggle="modal" class="ajaxDialog btn btn-primary"
+									   data-url="/jf/test/blog/toUrl?toUrl=/test/requirements/add.html" data-backdrop="true">添加<i class="fa fa-plus"></i></button>
+								<% } %>
 
+								<% if(delete == true){ %>
+									<button type="button" class="btn btn-red delete-row"
+										data-bb="deleteList" data-url="/jf/test/requirements/delete">
+										${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+									</button>
+								<% } %>
+							</span>
 						</div>
 					</div>
 					<!--<div class="row" id="splitPageDivHead">-->
@@ -86,16 +87,13 @@
 								</th>
 
 							</tr>
-							<tr><th rowspan="1" colspan="1">
-								<input type="text" name="filter_rendering_engine" placeholder=" " class="form-control input-sm datatable_input_col_search" readonly>
-							</th><th rowspan="1" colspan="1">
-								<input type="text" name="_query.author" value='${escapeXml(paramMap["_query.author"])}'
-									   maxlength="50" placeholder="用户" class="form-control focused input-sm datatable_input_col_search" onblur='common_ajax.ajaxFormMainPanel("splitPage");'>
-							</th><th rowspan="1" colspan="1">
-								<input type="text" name="filter_platform" placeholder="创建时间" class="form-control input-sm datatable_input_col_search" readonly>
-							</th>
+							<tr>
 								<th rowspan="1" colspan="1">
-									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+									<input type="text" name="filter_rendering_engine" placeholder=" " class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="_query.author" value='${escapeXml(paramMap["_query.author"])}'
+									   maxlength="50" placeholder="" class="form-control focused input-sm datatable_input_col_search" onblur='common_ajax.ajaxFormMainPanel("splitPage");'>
 								</th>
 								<th rowspan="1" colspan="1">
 									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
@@ -104,8 +102,14 @@
 									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
 								</th>
 								<th rowspan="1" colspan="1">
-								<input type="text" name="filter_engine_version" placeholder="操作" class="form-control input-sm datatable_input_col_search" readonly>
-							</th>
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_engine_version" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -117,10 +121,7 @@
 										value="${requirements.req_sn!}" class="flat-grey foocheck">
 								</td>
 								<td>
-									${escapeXml(requirements["author"]!)}
-								</td>
-								<td>
-									${requirements.creationdate!, dateFormat="yyyy-MM-dd"}
+										${escapeXml(requirements["author"]!)}
 								</td>
 								<td>
 									${escapeXml(requirements["product_name"]!)}
@@ -131,7 +132,9 @@
 								<td>
 									${escapeXml(requirements["description"]!)}
 								</td>
-
+								<td>
+									${requirements.creationdate!, dateFormat="yyyy-MM-dd HH:mm:ss.SSS"}
+								</td>
 								<td class="hidden-xs">
 									<% if(view == true){ %>
 									<button type="button" class="btn btn-dark-yellow add-row" 
@@ -142,42 +145,17 @@
 									<% } %>
 										
 									<% if(edit == true){ %>
-									<!--<button type="button" class="btn btn-green edit-row" -->
-										<!--onclick="common_ajax.ajaxMainPanel(-->
-												<!--'/jf/test/requirements/edit/${escapeXml(requirements.req_sn!)}');">-->
-										<!--${i18nMap["admin.common.edit"]} -->
-										<!--<i class="fa fa-edit"></i>-->
-									<!--</button>-->
-									<a href="#" data-toggle="modal" class="ajaxDialog btn"
+									<a href="#" data-toggle="modal" class="ajaxDialog btn btn-primary"
 									   data-url="/jf/test/requirements/edit/${escapeXml(requirements.req_sn!)}" data-backdrop="true">编辑</a>
 									<% } %>
-									
-									<% if(delete == true){ %>
-									<button type="button" class="btn btn-red delete-row" 
-										data-bb="deleteOne" 
-										data-url="/jf/test/requirements/delete/${requirements.req_sn!}"> 
-										${i18nMap["admin.common.delete"]} 
-										<i class="fa fa-trash-o"></i>
-									</button>
-									<% } %>
+
 								</td>
 							</tr>
 							<% } %>
 							
 						</tbody>
-						<tfood>
-							<!--<tr><th rowspan="1" colspan="1">-->
-								<!--<input type="text" name="filter_rendering_engine" placeholder=" " class="form-control input-sm datatable_input_col_search" readonly>-->
-							<!--</th><th rowspan="1" colspan="1">-->
-								<!--<input type="text" name="_query.author" value='${escapeXml(paramMap["_query.author"])}'-->
-									   <!--maxlength="50" placeholder="用户" class="form-control focused input-sm datatable_input_col_search" onblur='common_ajax.ajaxFormMainPanel("splitPage");'>-->
-							<!--</th><th rowspan="1" colspan="1">-->
-								<!--<input type="text" name="filter_platform" placeholder="创建时间" class="form-control input-sm datatable_input_col_search" readonly>-->
-							<!--</th><th rowspan="1" colspan="1">-->
-								<!--<input type="text" name="filter_engine_version" placeholder="操作" class="form-control input-sm datatable_input_col_search" readonly>-->
-							<!--</th>-->
-							<!--</tr>-->
-						</tfood>
+						<!--<tfood>-->
+						<!--</tfood>-->
 					</table>
 					
 					<div class="row" id="splitPageDiv">

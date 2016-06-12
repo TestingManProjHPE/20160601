@@ -1,10 +1,9 @@
 <!--dimple.js examples-->
 <div class="row">
 	<div class="col-md-6">
-		<!-- start: BORDERED TABLE PANEL -->
 		<div class="panel panel-white">
 			<div class="panel-heading">
-				<h4 class="panel-title"><span class="text-bold">缺陷统计</span></h4>
+				<h4 class="panel-title"><span class="text-bold">需求覆盖率</span></h4>
 				<div class="panel-tools">
 					<% include("/common/panel-tools-graphs.html"){} %>
 				</div>
@@ -14,120 +13,133 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<!-- start: BORDERED TABLE PANEL -->
 		<div class="panel panel-white">
 			<div class="panel-heading">
-				<h4 class="panel-title"><span class="text-bold">完成功能点统计</span></h4>
+				<h4 class="panel-title"><span class="text-bold">需求通过率</span></h4>
 				<div class="panel-tools">
-					<% include("/common/panel-tools.html"){} %>
+					<% include("/common/panel-tools-graphs.html"){} %>
 				</div>
 			</div>
-			<div class="panel-body dimpleChartWindow" id="dimpleLinePieContenttest" style="height:420px">
-				<script type="text/javascript">
-					var svg = dimple.newSvg("#dimpleLinePieContenttest", 590, 400);
-
-					// The default data set for these examples has regular times
-					// and the point of this demo is to show the time axis
-					// functionality, therefore a small bespoke data set is used.
-					data = [
-						{ "Shift":"结算系统","Date":"12 Jul 2010 10:00","完成功能点":1000 },
-						{ "Shift":"结算系统","Date":"20 Jul 2010 10:20","完成功能点":1200 },
-						{ "Shift":"结算系统","Date":"1 Aug 2010 10:40","完成功能点":1600 },
-						{ "Shift":"结算系统","Date":"8 Aug 2010 10:10","完成功能点":1300 },
-						{ "Shift":"结算系统","Date":"20 Aug 2010 11:00","完成功能点":1900 },
-						{ "Shift":"结算系统","Date":"7 Sep 2010 09:50","完成功能点":1100 },
-						{ "Shift":"结算系统","Date":"13 Sep 2010 10:10","完成功能点":1000 },
-						{ "Shift":"结算系统","Date":"1 Oct 2010 12:00","完成功能点":2000 },
-						{ "Shift":"结算系统","Date":"6 Oct 2010 10:10","完成功能点":1900 },
-						{ "Shift":"结算系统","Date":"19 Oct 2010 11:40","完成功能点":1800 },
-						{ "Shift":"结算系统","Date":"24 Oct 2010 10:30","完成功能点":1200 },
-						{ "Shift":"结算系统","Date":"3 Nov 2010 09:30","完成功能点":1800 },
-						{ "Shift":"结算系统","Date":"12 Nov 2010 10:50","完成功能点":1800 },
-						{ "Shift":"结算系统","Date":"20 Nov 2010 10:10","完成功能点":1900 },
-						{ "Shift":"结算系统","Date":"5 Dec 2010 10:50","完成功能点":1600 },
-						{ "Shift":"结算系统","Date":"9 Dec 2010 12:20","完成功能点":1700 },
-						{ "Shift":"结算系统","Date":"15 Dec 2010 10:10","完成功能点":1400 },
-						{ "Shift":"结算系统","Date":"20 Dec 2010 10:00","完成功能点":1200 },
-						{ "Shift":"前台UI","Date":"11 Jul 2010 16:00","完成功能点":2400 },
-						{ "Shift":"前台UI","Date":"30 Jul 2010 17:30","完成功能点":2000 },
-						{ "Shift":"前台UI","Date":"1 Aug 2010 15:40","完成功能点":1600 },
-						{ "Shift":"前台UI","Date":"5 Aug 2010 13:10","完成功能点":1700 },
-						{ "Shift":"前台UI","Date":"1 Sep 2010 15:00","完成功能点":1900 },
-						{ "Shift":"前台UI","Date":"7 Sep 2010 15:50","完成功能点":1100 },
-						{ "Shift":"前台UI","Date":"13 Sep 2010 14:10","完成功能点":1500 },
-						{ "Shift":"前台UI","Date":"30 Sep 2010 13:00","完成功能点":1000 },
-						{ "Shift":"前台UI","Date":"1 Nov 2010 15:50","完成功能点":1800 },
-						{ "Shift":"前台UI","Date":"24 Nov 2010 15:10","完成功能点":1900 },
-						{ "Shift":"前台UI","Date":"1 Dec 2010 15:50","完成功能点":1600 },
-						{ "Shift":"前台UI","Date":"5 Dec 2010 15:20","完成功能点":1700 },
-						{ "Shift":"前台UI","Date":"13 Dec 2010 15:10","完成功能点":1400 },
-						{ "Shift":"前台UI","Date":"25 Dec 2010 15:00","完成功能点":1200 }
-					];
-
-					// Create Separate Date and Time, this allows us to draw them
-					// on separate axes.  Despite the time axis only displaying
-					// the time portion, the whole date is used so they need to
-					// have the same date allocated
-					data.forEach(function (d) {
-						d["Day"] = d["Date"].substring(0, d["Date"].length - 6);
-						d["Time of Day"] =
-								"2000-01-01 " + d["Date"].substring(d["Date"].length - 5);
-					}, this);
-
-					// Create the chart as usual
-					var myChart = new dimple.chart(svg, data);
-					myChart.setBounds(70, 40, 490, 320)
-
-					// Add the x axis reading dates in the format 01 Jan 2012
-					// and displaying them 01 Jan
-					var x = myChart.addTimeAxis("x", "Day", "%d %b %Y", "%d %b");
-
-					// Add the y axis reading dates and times but only outputting
-					// times.
-					var y = myChart.addTimeAxis("y", "Time of Day",
-							"%Y-%m-%d %H:%M", "%H:%M");
-
-					// Size the bubbles by volume
-					var z = myChart.addMeasureAxis("z", "完成功能点");
-
-					// Setting min and max dates requires them to be set
-					// as actual javascript date objects
-					x.overrideMin = new Date("2010-06-20");
-					x.overrideMax = new Date("2011-01-02");
-					y.overrideMin = new Date("01/01/2000 9:00 am");
-					y.overrideMax = new Date("01/01/2000 6:00 pm");
-
-					// Show a label for every 4 weeks.
-					x.timePeriod = d3.time.weeks;
-					x.timeInterval = 4;
-
-					// Control bubble sizes by setting the max and min values
-					z.overrideMin = 900;
-					z.overrideMax = 3000;
-
-					// Add the bubble series for shift values first so that it is
-					// drawn behind the lines
-					myChart.addSeries("Shift", dimple.plot.bubble);
-
-					// Add the line series on top of the bubbles.  The bubbles
-					// and line points will naturally fall in the same places
-					var s = myChart.addSeries("Shift", dimple.plot.line);
-
-					// Add line markers to the line because it looks nice
-					s.lineMarkers = true;
-
-					// Show a legend
-					myChart.addLegend(180, 10, 360, 20, "right");
-
-					// Draw everything
-					myChart.draw();
-
-				</script>
+			<div class="panel-body dimpleChartWindow" id="dimpleRingContenttwo" style="height: 420px;">
 			</div>
 		</div>
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-12">
+<div class="panel panel-white">
+	<div class="panel-heading">
+		<h4 class="panel-title"><span class="text-bold">完成功能点统计</span></h4>
+		<div class="panel-tools">
+			<% include("/common/panel-tools.html"){} %>
+		</div>
+	</div>
+	<div class="panel-body dimpleChartWindow" id="dimpleLinePieContenttest" style="height:420px">
+		<script type="text/javascript">
+			var svg = dimple.newSvg("#dimpleLinePieContenttest", 590, 400);
+
+			// The default data set for these examples has regular times
+			// and the point of this demo is to show the time axis
+			// functionality, therefore a small bespoke data set is used.
+			data = [
+				{ "Shift":"结算系统","Date":"12 Jul 2010 10:00","完成功能点":1000 },
+				{ "Shift":"结算系统","Date":"20 Jul 2010 10:20","完成功能点":1200 },
+				{ "Shift":"结算系统","Date":"1 Aug 2010 10:40","完成功能点":1600 },
+				{ "Shift":"结算系统","Date":"8 Aug 2010 10:10","完成功能点":1300 },
+				{ "Shift":"结算系统","Date":"20 Aug 2010 11:00","完成功能点":1900 },
+				{ "Shift":"结算系统","Date":"7 Sep 2010 09:50","完成功能点":1100 },
+				{ "Shift":"结算系统","Date":"13 Sep 2010 10:10","完成功能点":1000 },
+				{ "Shift":"结算系统","Date":"1 Oct 2010 12:00","完成功能点":2000 },
+				{ "Shift":"结算系统","Date":"6 Oct 2010 10:10","完成功能点":1900 },
+				{ "Shift":"结算系统","Date":"19 Oct 2010 11:40","完成功能点":1800 },
+				{ "Shift":"结算系统","Date":"24 Oct 2010 10:30","完成功能点":1200 },
+				{ "Shift":"结算系统","Date":"3 Nov 2010 09:30","完成功能点":1800 },
+				{ "Shift":"结算系统","Date":"12 Nov 2010 10:50","完成功能点":1800 },
+				{ "Shift":"结算系统","Date":"20 Nov 2010 10:10","完成功能点":1900 },
+				{ "Shift":"结算系统","Date":"5 Dec 2010 10:50","完成功能点":1600 },
+				{ "Shift":"结算系统","Date":"9 Dec 2010 12:20","完成功能点":1700 },
+				{ "Shift":"结算系统","Date":"15 Dec 2010 10:10","完成功能点":1400 },
+				{ "Shift":"结算系统","Date":"20 Dec 2010 10:00","完成功能点":1200 },
+				{ "Shift":"前台UI","Date":"11 Jul 2010 16:00","完成功能点":2400 },
+				{ "Shift":"前台UI","Date":"30 Jul 2010 17:30","完成功能点":2000 },
+				{ "Shift":"前台UI","Date":"1 Aug 2010 15:40","完成功能点":1600 },
+				{ "Shift":"前台UI","Date":"5 Aug 2010 13:10","完成功能点":1700 },
+				{ "Shift":"前台UI","Date":"1 Sep 2010 15:00","完成功能点":1900 },
+				{ "Shift":"前台UI","Date":"7 Sep 2010 15:50","完成功能点":1100 },
+				{ "Shift":"前台UI","Date":"13 Sep 2010 14:10","完成功能点":1500 },
+				{ "Shift":"前台UI","Date":"30 Sep 2010 13:00","完成功能点":1000 },
+				{ "Shift":"前台UI","Date":"1 Nov 2010 15:50","完成功能点":1800 },
+				{ "Shift":"前台UI","Date":"24 Nov 2010 15:10","完成功能点":1900 },
+				{ "Shift":"前台UI","Date":"1 Dec 2010 15:50","完成功能点":1600 },
+				{ "Shift":"前台UI","Date":"5 Dec 2010 15:20","完成功能点":1700 },
+				{ "Shift":"前台UI","Date":"13 Dec 2010 15:10","完成功能点":1400 },
+				{ "Shift":"前台UI","Date":"25 Dec 2010 15:00","完成功能点":1200 }
+			];
+
+			// Create Separate Date and Time, this allows us to draw them
+			// on separate axes.  Despite the time axis only displaying
+			// the time portion, the whole date is used so they need to
+			// have the same date allocated
+			data.forEach(function (d) {
+				d["Day"] = d["Date"].substring(0, d["Date"].length - 6);
+				d["Time of Day"] =
+						"2000-01-01 " + d["Date"].substring(d["Date"].length - 5);
+			}, this);
+
+			// Create the chart as usual
+			var myChart = new dimple.chart(svg, data);
+			myChart.setBounds(70, 40, 490, 320)
+
+			// Add the x axis reading dates in the format 01 Jan 2012
+			// and displaying them 01 Jan
+			var x = myChart.addTimeAxis("x", "Day", "%d %b %Y", "%d %b");
+
+			// Add the y axis reading dates and times but only outputting
+			// times.
+			var y = myChart.addTimeAxis("y", "Time of Day",
+					"%Y-%m-%d %H:%M", "%H:%M");
+
+			// Size the bubbles by volume
+			var z = myChart.addMeasureAxis("z", "完成功能点");
+
+			// Setting min and max dates requires them to be set
+			// as actual javascript date objects
+			x.overrideMin = new Date("2010-06-20");
+			x.overrideMax = new Date("2011-01-02");
+			y.overrideMin = new Date("01/01/2000 9:00 am");
+			y.overrideMax = new Date("01/01/2000 6:00 pm");
+
+			// Show a label for every 4 weeks.
+			x.timePeriod = d3.time.weeks;
+			x.timeInterval = 4;
+
+			// Control bubble sizes by setting the max and min values
+			z.overrideMin = 900;
+			z.overrideMax = 3000;
+
+			// Add the bubble series for shift values first so that it is
+			// drawn behind the lines
+			myChart.addSeries("Shift", dimple.plot.bubble);
+
+			// Add the line series on top of the bubbles.  The bubbles
+			// and line points will naturally fall in the same places
+			var s = myChart.addSeries("Shift", dimple.plot.line);
+
+			// Add line markers to the line because it looks nice
+			s.lineMarkers = true;
+
+			// Show a legend
+			myChart.addLegend(180, 10, 360, 20, "right");
+
+			// Draw everything
+			myChart.draw();
+
+		</script>
+	</div>
+</div>
+</div>
+	</div>
 <div class="row">
 	<div class="col-md-12">
 		<!-- start: BORDERED TABLE PANEL -->
@@ -143,7 +155,6 @@
 					url = 'http://localhost:8080/jf/test/requirements/reportone';
 					d3.json(url,function(jsonstr) {
 						var svg = dimple.newSvg("#dimpleBarContent", 590, 400);
-						console.log(jsonstr);
 						data=jsonstr.testdata;
 						var myChart = new dimple.chart(svg, data);
 						myChart.setBounds(60, 30, 510, 305);

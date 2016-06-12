@@ -1,186 +1,319 @@
-
-<div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/platform/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
-			<li class="active">博客管理</li>
-		</ol>
-	</div>
-</div>
-						
 <form id="splitPage" class="form-horizontal" action="${cxt!}/jf/test/blog" method="POST">
-	
-	<div class="row">
-		<div class="col-md-12">
-			<!-- start: BORDERED TABLE PANEL -->
-			<div class="panel panel-white">
-				
-				<div class="panel-heading">
-					<h4 class="panel-title"><span class="text-bold">博客查询</span></h4>
-					<div class="panel-tools">										
-						<% include("/common/panel-tools.html"){} %>
+
+	<div class="table-grid table-grid-desktop">
+		<div class="col col-md">
+			<div class="pr">
+				<!-- START list-->
+				<div class="mb-boxes collapse">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<ul class="metismenu" id="menu">
+								<li class="active">
+									<a href="#" aria-expanded="true">
+										<span class="sidebar-nav-item-icon fa fa-github fa-lg"></span>
+										<span class="sidebar-nav-item">metisMenu</span>
+										<span class="fa arrow fa-fw"></span>
+									</a>
+									<ul aria-expanded="true" class="collapse in">
+										<li>
+											<a href="https://github.com/onokumus/metisMenu">
+												<span class="sidebar-nav-item-icon fa fa-code-fork fa-fw"></span>
+												Fork
+											</a>
+										</li>
+										<li>
+											<a href="https://github.com/onokumus/metisMenu">
+												<span class="sidebar-nav-item-icon fa fa-star fa-fw"></span>
+												Star
+											</a>
+										</li>
+										<li>
+											<a href="https://github.com/onokumus/metisMenu/issues">
+												<span class="sidebar-nav-item-icon fa fa-exclamation-triangle fa-fw"></span>
+												Issues
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" aria-expanded="false">Menu 0 <span class="fa arrow fa-fw"></span></a>
+									<ul aria-expanded="false" class="collapse">
+										<li><a href="#">item 0.1</a></li>
+										<li><a href="#">item 0.2</a></li>
+										<li><a href="http://onokumus.com">onokumus</a></li>
+										<li><a href="#">item 0.4</a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" aria-expanded="false">Menu 1 <span class="glyphicon arrow"></span></a>
+									<ul aria-expanded="false" class="collapse">
+										<li><a href="#">item 1.1</a></li>
+										<li><a href="#">item 1.2</a></li>
+										<li>
+											<a href="#" aria-expanded="false">Menu 1.3 <span class="fa plus-times"></span></a>
+											<ul aria-expanded="false" class="collapse">
+												<li><a href="#">item 1.3.1</a></li>
+												<li><a href="#">item 1.3.2</a></li>
+												<li><a href="#">item 1.3.3</a></li>
+												<li><a href="#">item 1.3.4</a></li>
+											</ul>
+										</li>
+										<li><a href="#">item 1.4</a></li>
+										<li>
+											<a href="#" aria-expanded="false">Menu 1.5 <span class="fa plus-minus"></span></a>
+											<ul aria-expanded="false" class="collapse">
+												<li><a href="#">item 1.5.1</a></li>
+												<li><a href="#">item 1.5.2</a></li>
+												<li><a href="#">item 1.5.3</a></li>
+												<li><a href="#">item 1.5.4</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" aria-expanded="false">Menu 2 <span class="glyphicon arrow"></span></a>
+									<ul aria-expanded="false" class="collapse">
+										<li><a href="#">item 2.1</a></li>
+										<li><a href="#">item 2.2</a></li>
+										<li><a href="#">item 2.3</a></li>
+										<li><a href="#">item 2.4</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				
-				<div class="panel-body">		
-				  	<div class="form-group">
-				  	
-						<label class="col-sm-2 control-label" for="focusedInput">标题</label>
-						<div class="col-sm-4">
-						 	<input class="form-control focused" type="text" 
-						 	name="_query.title" value='${escapeXml(paramMap["_query.title"])}' 
-						 	maxlength="50" >
-						</div>
-								
-						<label class="col-sm-2 control-label" for="focusedInput">内容</label>
-						<div class="col-sm-4">
-						 	<input class="form-control focused" type="text" 
-						 	name="_query.content" value='${escapeXml(paramMap["_query.content"])}' 
-						 	maxlength="50" >
-						</div>
-
-				  	</div>
-				  	
-					<div class="form-group">
-						<div class="col-sm-5 col-sm-offset-5">
-							<button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPage");'>${i18nMap["admin.common.select"]}</button>
-							<button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
-						</div>
-				  	</div>
-				</div>
-			
+				<!-- END list-->
 			</div>
 		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-md-12">
-			<!-- start: BORDERED TABLE PANEL -->
-			<div class="panel panel-white">
-				
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<span class="text-bold">博客列表</span>
-					</h4>
-					<div class="panel-tools">										
-						<% include("/common/panel-tools.html"){} %>
-					</div>
-				</div>
-				
-				<%
-					var edit = authUrl("/jf/test/blog/edit");
-					var delete = authUrl("/jf/test/blog/delete");
-					var view = authUrl("/jf/test/blog/view");
-				%>
-				
+		<div class="col">
+			<div class="panel panel-default">
 				<div class="panel-body">
-					
-					<div class="row">
-						<div class="col-md-12 space20">
-						
-							<% if(authUrl("/test/blog/add.html")){ %>
-								<button type="button" class="btn btn-success add-row" 
-									onclick="common_ajax.ajaxMainPanel('/jf/test/blog/toUrl?toUrl=/test/blog/add.html');">
-									添加博客 <i class="fa fa-plus"></i>
-								</button>
-							<% } %>	
-							
-							<% if(delete == true){ %>
-								<button type="button" class="btn btn-red delete-row" 
-									data-bb="deleteList" data-url="/jf/test/blog/delete"> 
-									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
-								</button>
-							<% } %>
-
+					<div class="panel-heading">Order Information</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<p class="lead bb">Details</p>
+								<form class="form-horizontal p-20">
+									<div class="form-group">
+										<div class="col-sm-4">Order ID:</div>
+										<div class="col-sm-8">
+											<strong>987654</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Purchased On:</div>
+										<div class="col-sm-8">
+											<strong>03/11/2015 10:10</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Client Name:</div>
+										<div class="col-sm-8">
+											<strong>Addison Nichols</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Items:</div>
+										<div class="col-sm-8">
+											<strong>547</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Amount:</div>
+										<div class="col-sm-8">
+											<strong>$515.20</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Shipment:</div>
+										<div class="col-sm-8">
+											<strong>04/10/2015</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Status</div>
+										<div class="col-sm-8">
+											<div class="label label-info">Shipped</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<p class="lead bb">Client</p>
+								<form class="form-horizontal p-20">
+									<div class="form-group">
+										<div class="col-sm-4">Client ID:</div>
+										<div class="col-sm-8">
+											<strong>#32654</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Name:</div>
+										<div class="col-sm-8">
+											<strong>Addison Nichols</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Email:</div>
+										<div class="col-sm-8">
+											<strong>addisong@mail.com</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Company:</div>
+										<div class="col-sm-8">
+											<strong>Addison co.</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Phone:</div>
+										<div class="col-sm-8">
+											<strong>(123) 123 456465</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Status</div>
+										<div class="col-sm-8">
+											<div class="label label-success">Active</div>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<p class="lead bb">Billing Address</p>
+								<form class="form-horizontal p-20">
+									<div class="form-group">
+										<div class="col-sm-4">First Name</div>
+										<div class="col-sm-8">
+											<strong>John</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Last Name:</div>
+										<div class="col-sm-8">
+											<strong>Johnson</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Company:</div>
+										<div class="col-sm-8">
+											<strong>John co.</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Address:</div>
+										<div class="col-sm-8">
+											<strong>2125 Chesterfield</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">City:</div>
+										<div class="col-sm-8">
+											<strong>San Francisco</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">State</div>
+										<div class="col-sm-8">
+											<strong>N/a</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">ZIP/Post Code</div>
+										<div class="col-sm-8">
+											<strong>1324</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Country</div>
+										<div class="col-sm-8">
+											<strong>Neverland</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Phone</div>
+										<div class="col-sm-8">
+											<strong>(123) 132 456789</strong>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+								<p class="lead bb">Shipping Address</p>
+								<form class="form-horizontal p-20">
+									<div class="form-group">
+										<div class="col-sm-4">First Name</div>
+										<div class="col-sm-8">
+											<strong>John</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Last Name:</div>
+										<div class="col-sm-8">
+											<strong>Johnson</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Company:</div>
+										<div class="col-sm-8">
+											<strong>John co.</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Address:</div>
+										<div class="col-sm-8">
+											<strong>2125 Chesterfield</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">City:</div>
+										<div class="col-sm-8">
+											<strong>San Francisco</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">State</div>
+										<div class="col-sm-8">
+											<strong>N/a</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">ZIP/Post Code</div>
+										<div class="col-sm-8">
+											<strong>1324</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Country</div>
+										<div class="col-sm-8">
+											<strong>Neverland</strong>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4">Phone</div>
+										<div class="col-sm-8">
+											<strong>(123) 132 456789</strong>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="alert alert-warning">
+							<em class="fa fa-exclamation-circle fa-lg fa-fw"></em>Shipping address is different than billing address</div>
 					</div>
-					
-					<table class="table table-bordered table-hover" id="dataTable">
-						<thead>
-							<tr>
-							
-								<th class="center hidden-xs" width="50">
-									<input type="checkbox" name="checkAll" class="flat-grey selectall" 
-										onchange="common_common.checkFunc('dataTable', this.checked);"> 
-								</th>
-								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
-										'mainPanel', 'splitPage', 'title')">
-									标题	${orderBy("title")}
-								</th>
-								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
-										'mainPanel', 'splitPage', 'createtime')">
-									创建时间	${orderBy("createtime")}
-								</th>
-								<th class="hidden-xs">
-									${i18nMap["admin.common.operation"]}
-								</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							
-							<% for(blog in splitPage.list){ %>
-							<tr>
-								<td class="center hidden-xs">
-									<input type="checkbox" name="checkIds" 
-										value="${blog.ids!}" class="flat-grey foocheck">
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-										${escapeXml(blog["title"]!)}
-									</span>
-								</td>
-								<td>
-									${blog.createtime !, dateFormat="yyyy-MM-dd HH:mm:ss.SSS"}
-								</td>
-								<td class="hidden-xs">
-									<% if(view == true){ %>
-									<button type="button" class="btn btn-dark-yellow add-row" 
-										onclick="common_ajax.ajaxMainPanel(
-												'/jf/test/blog/view/${blog.ids!}');">
-										${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
-									</button>
-									<% } %>
-										
-									<% if(edit == true){ %>
-									<button type="button" class="btn btn-green edit-row" 
-										onclick="common_ajax.ajaxMainPanel(
-												'/jf/test/blog/edit/${escapeXml(blog.ids!)}');"> 
-										${i18nMap["admin.common.edit"]} 
-										<i class="fa fa-edit"></i>
-									</button>
-									<% } %>
-									
-									<% if(delete == true){ %>
-									<button type="button" class="btn btn-red delete-row" 
-										data-bb="deleteOne" 
-										data-url="/jf/test/blog/delete/${blog.ids!}"> 
-										${i18nMap["admin.common.delete"]} 
-										<i class="fa fa-trash-o"></i>
-									</button>
-									<% } %>
-								</td>
-							</tr>
-							<% } %>
-							
-						</tbody>
-					</table>
-					
-					<div class="row" id="splitPageDiv">
-						<% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
-					</div>
-					
 				</div>
-			
 			</div>
-			<!-- end: BORDERED TABLE PANEL -->
 		</div>
 	</div>
-	
+
 </form>			
 
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 		common_form.init();
+		$('#menu').metisMenu();
 	});
 </script>

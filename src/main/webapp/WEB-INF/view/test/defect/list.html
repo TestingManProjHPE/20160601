@@ -37,18 +37,18 @@
 							<span class="dataTables_paginate paging_bootstrap" style="float:left" id="splitPageDivHead">
 								<% include("/common/splitPageHead.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
 							</span>
-							<% if(authUrl("/test/defect/add.html")){ %>
-							<a href="#" data-toggle="modal" class="ajaxDialog btn" style="float:right;margin-right: 30px;"
-							   data-url="/jf/test/defect/toUrl?toUrl=/test/defect/add.html" data-backdrop="true">添加<i class="fa fa-plus"></i></a>
-							<% } %>
-							
-							<% if(delete == true){ %>
-								<button type="button" class="btn btn-red delete-row" 
-									data-bb="deleteList" data-url="/jf/test/defect/delete"> 
-									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
-								</button>
-							<% } %>
-
+							<span style="float:right;margin-right: 30px;">
+								<% if(authUrl("/test/defect/add.html")){ %>
+									<button href="#" data-toggle="modal" class="ajaxDialog btn btn-primary"
+									   data-url="/jf/test/defect/toUrl?toUrl=/test/defect/add.html" data-backdrop="true">添加<i class="fa fa-plus"></i></button>
+								<% } %>
+								<% if(delete == true){ %>
+									<button type="button" class="btn btn-red delete-row"
+										data-bb="deleteList" data-url="/jf/test/defect/delete">
+										${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+									</button>
+								<% } %>
+							</span>
 						</div>
 					</div>
 					<!--<div class="row" id="splitPageDivHead">-->
@@ -69,16 +69,71 @@
 										'mainPanel', 'splitPage', 'module')">
 									所属模块	${orderBy("module")}
 								</th>
-
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'def_type')">
+									缺陷类型	${orderBy("def_type")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'def_Status')">
+									缺陷状态	${orderBy("def_Status")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'AssignedTo')">
+									分配给	${orderBy("AssignedTo")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'Detected_By')">
+									发现者	${orderBy("Detected_By")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'Deteded_Date')">
+									发现时间	${orderBy("Deteded_Date")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'Priority')">
+									优先级	${orderBy("Priority")}
+								</th>
 								<th class="hidden-xs">
 									${i18nMap["admin.common.operation"]}
 								</th>
-
+							</tr>
+							<tr>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_rendering_engine" placeholder=" " class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="_query.module" value='${escapeXml(paramMap["_query.module"])}'
+										   maxlength="50" placeholder="" class="form-control focused input-sm datatable_input_col_search" onblur='common_ajax.ajaxFormMainPanel("splitPage");'>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_platform" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
+								<th rowspan="1" colspan="1">
+									<input type="text" name="filter_engine_version" placeholder="" class="form-control input-sm datatable_input_col_search" readonly>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
 							
-							<% for(defect in splitPage.list){ %>
+							<% for(requirements in splitPage.list){ %>
 							<tr>
 								<td class="center hidden-xs">
 									<input type="checkbox" name="checkIds" 
@@ -90,17 +145,12 @@
 									<!--</span>-->
 								</td>
 								<td>${escapeXml(defect["module"]!)}</td>
-								<td>${escapeXml(defect["Target_Cycle"]!)}</td>
-								<td>${escapeXml(defect["Target_Release"]!)}</td>
 								<td>${escapeXml(defect["def_type"]!)}</td>
 								<td>${escapeXml(defect["def_Status"]!)}</td>
 								<td>${escapeXml(defect["AssignedTo"]!)}</td>
 								<td>${escapeXml(defect["Detected_By"]!)}</td>
 								<td>${defect.Deteded_Date !, dateFormat="yyyy-MM-dd HH:mm:ss.SSS"}</td>
 								<td>${escapeXml(defect["Priority"]!)}</td>
-								<td>${escapeXml(defect["Description"]!)}</td>
-								<td>${escapeXml(defect["Summary"]!)}</td>
-								<td>${escapeXml(defect["Attachment"]!)}</td>
 								<td class="hidden-xs">
 									<% if(view == true){ %>
 									<button type="button" class="btn btn-dark-yellow add-row" 
